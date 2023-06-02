@@ -1,0 +1,761 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Contractor">
+          <Key>
+            <PropertyRef Name="id_Contractor" />
+          </Key>
+          <Property Name="id_Contractor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Contractor" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Representative" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telephone" Type="varchar" MaxLength="11" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="id_Employee" />
+          </Key>
+          <Property Name="id_Employee" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_Post" Type="int" Nullable="false" />
+          <Property Name="Birthday" Type="date" Nullable="false" />
+          <Property Name="id_Gender" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="id_Gender" />
+          </Key>
+          <Property Name="id_Gender" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kind">
+          <Key>
+            <PropertyRef Name="id_Kind" />
+          </Key>
+          <Property Name="id_Kind" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="id_Post" />
+          </Key>
+          <Property Name="id_Post" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Post" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Salary" Type="money" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id_Product" />
+          </Key>
+          <Property Name="id_Product" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Supply" Type="int" />
+          <Property Name="id_Kind" Type="int" />
+          <Property Name="Name_Product" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PurchaseCost" Type="int" Nullable="false" />
+          <Property Name="SellingPrice" Type="int" Nullable="false" />
+          <Property Name="Amount_Product" Type="int" Nullable="false" />
+          <Property Name="Photo" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="id_Role" />
+          </Key>
+          <Property Name="id_Role" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="id_Sale" />
+          </Key>
+          <Property Name="id_Sale" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Product" Type="int" Nullable="false" />
+          <Property Name="Amount_Sale" Type="int" Nullable="false" />
+          <Property Name="id_Employee" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Supply">
+          <Key>
+            <PropertyRef Name="id_Supply" />
+          </Key>
+          <Property Name="id_Supply" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Contractor" Type="int" Nullable="false" />
+          <Property Name="DateDelivery" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id_User" />
+          </Key>
+          <Property Name="id_User" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname_User" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name_User" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Patronymic_User" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_Gender" Type="int" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="int" Nullable="false" />
+          <Property Name="Birthday_User" Type="date" Nullable="false" />
+          <Property Name="id_Role" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsersPhoto">
+          <Key>
+            <PropertyRef Name="id_Photo" />
+          </Key>
+          <Property Name="id_Photo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_User" Type="int" Nullable="false" />
+          <Property Name="Photo_Binary" Type="varbinary(max)" />
+          <Property Name="Photo_Path" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Employee_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="id_Gender" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="id_Gender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="id_Post" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="id_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Kind">
+          <End Role="Kind" Type="Self.Kind" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kind">
+              <PropertyRef Name="id_Kind" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="id_Kind" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Supply">
+          <End Role="Supply" Type="Self.Supply" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supply">
+              <PropertyRef Name="id_Supply" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="id_Supply" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="id_Employee" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="id_Employee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id_Product" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="id_Product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supply_Contractor">
+          <End Role="Contractor" Type="Self.Contractor" Multiplicity="1" />
+          <End Role="Supply" Type="Self.Supply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contractor">
+              <PropertyRef Name="id_Contractor" />
+            </Principal>
+            <Dependent Role="Supply">
+              <PropertyRef Name="id_Contractor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="id_Gender" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="id_Gender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="id_Role" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="id_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersPhoto_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UsersPhoto" Type="Self.UsersPhoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id_User" />
+            </Principal>
+            <Dependent Role="UsersPhoto">
+              <PropertyRef Name="id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ModelContainer">
+          <EntitySet Name="Contractor" EntityType="Self.Contractor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kind" EntityType="Self.Kind" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sale" EntityType="Self.Sale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supply" EntityType="Self.Supply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersPhoto" EntityType="Self.UsersPhoto" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Employee_Gender" Association="Self.FK_Employee_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Post" Association="Self.FK_Employee_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Kind" Association="Self.FK_Product_Kind">
+            <End Role="Kind" EntitySet="Kind" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Supply" Association="Self.FK_Product_Supply">
+            <End Role="Supply" EntitySet="Supply" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Employee" Association="Self.FK_Sale_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Product" Association="Self.FK_Sale_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supply_Contractor" Association="Self.FK_Supply_Contractor">
+            <End Role="Contractor" EntitySet="Contractor" />
+            <End Role="Supply" EntitySet="Supply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Gender" Association="Self.FK_Users_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Role" Association="Self.FK_Users_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersPhoto_Users" Association="Self.FK_UsersPhoto_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UsersPhoto" EntitySet="UsersPhoto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Contractor">
+          <Key>
+            <PropertyRef Name="id_Contractor" />
+          </Key>
+          <Property Name="id_Contractor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Contractor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Representative" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telephone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Supply" Relationship="Self.FK_Supply_Contractor" FromRole="Contractor" ToRole="Supply" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="id_Employee" />
+          </Key>
+          <Property Name="id_Employee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_Post" Type="Int32" Nullable="false" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="id_Gender" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Gender" Relationship="Self.FK_Employee_Gender" FromRole="Employee" ToRole="Gender" />
+          <NavigationProperty Name="Post" Relationship="Self.FK_Employee_Post" FromRole="Employee" ToRole="Post" />
+          <NavigationProperty Name="Sale" Relationship="Self.FK_Sale_Employee" FromRole="Employee" ToRole="Sale" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="id_Gender" />
+          </Key>
+          <Property Name="id_Gender" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gender1" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Gender" FromRole="Gender" ToRole="Employee" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Gender" FromRole="Gender" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Kind">
+          <Key>
+            <PropertyRef Name="id_Kind" />
+          </Key>
+          <Property Name="id_Kind" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Kind" FromRole="Kind" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="id_Post" />
+          </Key>
+          <Property Name="id_Post" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Post" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Salary" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Post" FromRole="Post" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id_Product" />
+          </Key>
+          <Property Name="id_Product" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Supply" Type="Int32" />
+          <Property Name="id_Kind" Type="Int32" />
+          <Property Name="Name_Product" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PurchaseCost" Type="Int32" Nullable="false" />
+          <Property Name="SellingPrice" Type="Int32" Nullable="false" />
+          <Property Name="Amount_Product" Type="Int32" Nullable="false" />
+          <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Kind" Relationship="Self.FK_Product_Kind" FromRole="Product" ToRole="Kind" />
+          <NavigationProperty Name="Supply" Relationship="Self.FK_Product_Supply" FromRole="Product" ToRole="Supply" />
+          <NavigationProperty Name="Sale" Relationship="Self.FK_Sale_Product" FromRole="Product" ToRole="Sale" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="id_Role" />
+          </Key>
+          <Property Name="id_Role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Role" FromRole="Role" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="id_Sale" />
+          </Key>
+          <Property Name="id_Sale" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Product" Type="Int32" Nullable="false" />
+          <Property Name="Amount_Sale" Type="Int32" Nullable="false" />
+          <Property Name="id_Employee" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Sale_Employee" FromRole="Sale" ToRole="Employee" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Sale_Product" FromRole="Sale" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Supply">
+          <Key>
+            <PropertyRef Name="id_Supply" />
+          </Key>
+          <Property Name="id_Supply" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Contractor" Type="Int32" Nullable="false" />
+          <Property Name="DateDelivery" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Contractor" Relationship="Self.FK_Supply_Contractor" FromRole="Supply" ToRole="Contractor" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Supply" FromRole="Supply" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id_User" />
+          </Key>
+          <Property Name="id_User" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname_User" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name_User" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic_User" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_Gender" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="Int32" Nullable="false" />
+          <Property Name="Birthday_User" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="id_Role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Gender" Relationship="Self.FK_Users_Gender" FromRole="Users" ToRole="Gender" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Users_Role" FromRole="Users" ToRole="Role" />
+          <NavigationProperty Name="UsersPhoto" Relationship="Self.FK_UsersPhoto_Users" FromRole="Users" ToRole="UsersPhoto" />
+        </EntityType>
+        <EntityType Name="UsersPhoto">
+          <Key>
+            <PropertyRef Name="id_Photo" />
+          </Key>
+          <Property Name="id_Photo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_User" Type="Int32" Nullable="false" />
+          <Property Name="Photo_Binary" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Photo_Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_UsersPhoto_Users" FromRole="UsersPhoto" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_Supply_Contractor">
+          <End Role="Contractor" Type="Self.Contractor" Multiplicity="1" />
+          <End Role="Supply" Type="Self.Supply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contractor">
+              <PropertyRef Name="id_Contractor" />
+            </Principal>
+            <Dependent Role="Supply">
+              <PropertyRef Name="id_Contractor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="id_Gender" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="id_Gender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="id_Post" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="id_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="id_Employee" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="id_Employee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="id_Gender" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="id_Gender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Kind">
+          <End Role="Kind" Type="Self.Kind" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kind">
+              <PropertyRef Name="id_Kind" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="id_Kind" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Supply">
+          <End Role="Supply" Type="Self.Supply" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supply">
+              <PropertyRef Name="id_Supply" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="id_Supply" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id_Product" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="id_Product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="id_Role" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="id_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersPhoto_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UsersPhoto" Type="Self.UsersPhoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id_User" />
+            </Principal>
+            <Dependent Role="UsersPhoto">
+              <PropertyRef Name="id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EntitiesModel" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Contractor" EntityType="Self.Contractor" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" />
+          <EntitySet Name="Kind" EntityType="Self.Kind" />
+          <EntitySet Name="Post" EntityType="Self.Post" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="Sale" EntityType="Self.Sale" />
+          <EntitySet Name="Supply" EntityType="Self.Supply" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="UsersPhoto" EntityType="Self.UsersPhoto" />
+          <AssociationSet Name="FK_Supply_Contractor" Association="Self.FK_Supply_Contractor">
+            <End Role="Contractor" EntitySet="Contractor" />
+            <End Role="Supply" EntitySet="Supply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Gender" Association="Self.FK_Employee_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Post" Association="Self.FK_Employee_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Employee" Association="Self.FK_Sale_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Gender" Association="Self.FK_Users_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Kind" Association="Self.FK_Product_Kind">
+            <End Role="Kind" EntitySet="Kind" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Supply" Association="Self.FK_Product_Supply">
+            <End Role="Supply" EntitySet="Supply" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Product" Association="Self.FK_Sale_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Role" Association="Self.FK_Users_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersPhoto_Users" Association="Self.FK_UsersPhoto_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UsersPhoto" EntitySet="UsersPhoto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="EntitiesModel">
+          <EntitySetMapping Name="Contractor">
+            <EntityTypeMapping TypeName="Model.Contractor">
+              <MappingFragment StoreEntitySet="Contractor">
+                <ScalarProperty Name="id_Contractor" ColumnName="id_Contractor" />
+                <ScalarProperty Name="Name_Contractor" ColumnName="Name_Contractor" />
+                <ScalarProperty Name="Representative" ColumnName="Representative" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="Model.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="id_Employee" ColumnName="id_Employee" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="id_Post" ColumnName="id_Post" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="id_Gender" ColumnName="id_Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gender">
+            <EntityTypeMapping TypeName="Model.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="id_Gender" ColumnName="id_Gender" />
+                <ScalarProperty Name="Gender1" ColumnName="Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kind">
+            <EntityTypeMapping TypeName="Model.Kind">
+              <MappingFragment StoreEntitySet="Kind">
+                <ScalarProperty Name="id_Kind" ColumnName="id_Kind" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Post">
+            <EntityTypeMapping TypeName="Model.Post">
+              <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="id_Post" ColumnName="id_Post" />
+                <ScalarProperty Name="Name_Post" ColumnName="Name_Post" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="Model.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="id_Product" ColumnName="id_Product" />
+                <ScalarProperty Name="id_Supply" ColumnName="id_Supply" />
+                <ScalarProperty Name="id_Kind" ColumnName="id_Kind" />
+                <ScalarProperty Name="Name_Product" ColumnName="Name_Product" />
+                <ScalarProperty Name="PurchaseCost" ColumnName="PurchaseCost" />
+                <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+                <ScalarProperty Name="Amount_Product" ColumnName="Amount_Product" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="Model.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="id_Role" ColumnName="id_Role" />
+                <ScalarProperty Name="Role1" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sale">
+            <EntityTypeMapping TypeName="Model.Sale">
+              <MappingFragment StoreEntitySet="Sale">
+                <ScalarProperty Name="id_Sale" ColumnName="id_Sale" />
+                <ScalarProperty Name="id_Product" ColumnName="id_Product" />
+                <ScalarProperty Name="Amount_Sale" ColumnName="Amount_Sale" />
+                <ScalarProperty Name="id_Employee" ColumnName="id_Employee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supply">
+            <EntityTypeMapping TypeName="Model.Supply">
+              <MappingFragment StoreEntitySet="Supply">
+                <ScalarProperty Name="id_Supply" ColumnName="id_Supply" />
+                <ScalarProperty Name="id_Contractor" ColumnName="id_Contractor" />
+                <ScalarProperty Name="DateDelivery" ColumnName="DateDelivery" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Model.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="id_User" ColumnName="id_User" />
+                <ScalarProperty Name="Surname_User" ColumnName="Surname_User" />
+                <ScalarProperty Name="Name_User" ColumnName="Name_User" />
+                <ScalarProperty Name="Patronymic_User" ColumnName="Patronymic_User" />
+                <ScalarProperty Name="id_Gender" ColumnName="id_Gender" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Birthday_User" ColumnName="Birthday_User" />
+                <ScalarProperty Name="id_Role" ColumnName="id_Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsersPhoto">
+            <EntityTypeMapping TypeName="Model.UsersPhoto">
+              <MappingFragment StoreEntitySet="UsersPhoto">
+                <ScalarProperty Name="id_Photo" ColumnName="id_Photo" />
+                <ScalarProperty Name="id_User" ColumnName="id_User" />
+                <ScalarProperty Name="Photo_Binary" ColumnName="Photo_Binary" />
+                <ScalarProperty Name="Photo_Path" ColumnName="Photo_Path" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
