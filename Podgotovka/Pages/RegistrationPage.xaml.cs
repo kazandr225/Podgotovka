@@ -96,33 +96,32 @@ namespace Podgotovka.Pages
         {
             string pass = password.Password;
 
-            Regex CapitalSymb = new Regex("(?=.*[A-Z])"); //заглавный латинский символ
-            Regex SmallSymbs = new Regex("(?=.*[a-z])"); //три строчных латинских символа
-            Regex Numbers = new Regex("(?=.*[0-9])"); //цифры
-            Regex SpecSymb = new Regex("(?=.*[!?@#$%^&*-=+()])"); //Специальные симфолы
+            Regex CapitalSymb = new Regex("(?=.*[A-Z])");
+            Regex SmallSymb = new Regex("(?=.*[a-z])");
+            Regex Numbers = new Regex("(?=.*[0-9])");
+            Regex SpecSymb = new Regex("(?=.*[!?@#$%^&*()-=+])");
 
-            if (CapitalSymb.IsMatch(pass))
+            if (!CapitalSymb.IsMatch(pass))
             {
-                MessageBox.Show("В пароле должен содержатсья как минимум 1 заглавный латинский символ");
+                MessageBox.Show("Пароль должен содержать как минимум один заглавный символ");
                 return false;
             }
 
-            if (SmallSymbs.IsMatch(pass))
+            if (!SmallSymb.IsMatch(pass))
             {
-                MessageBox.Show("В пароле должно быть как минимум 3 строчных латинских символа");
+                MessageBox.Show("роль должен содержать не менее 3-х маленьких латинских символа");
                 return false;
             }
 
-            if (Numbers.IsMatch(pass))
+            if (!Numbers.IsMatch(pass))
             {
-                MessageBox.Show("Пароль должен содержать как минимум 2 цифры");
+                MessageBox.Show("Пароль должен содержать не менее 1 цифры");
                 return false;
             }
 
-            if (SpecSymb.IsMatch(pass))
-
+            if (!SpecSymb.IsMatch(pass))
             {
-                MessageBox.Show("Пароль должен содержать как минимум 1 специальный символ");
+                MessageBox.Show("Пароль должен содержать не менее 1 специального символа");
                 return false;
             }
 
@@ -136,6 +135,7 @@ namespace Podgotovka.Pages
             {
                 return true;
             }
+            
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

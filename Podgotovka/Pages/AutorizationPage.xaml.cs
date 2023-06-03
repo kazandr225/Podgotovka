@@ -36,33 +36,59 @@ namespace Podgotovka.Pages
             //MessageBox.Show("Ошибка ввода!", "Проверьте введенные данные!");
             //}
 
-            int p = pbPasword.Password.GetHashCode(); //хэшируем введенный пароль и записываем его в переменную
+            //int p = pbPasword.Password.GetHashCode(); //хэшируем введенный пароль и записываем его в переменную
 
-            Users autoUser = BaseClass.EM.Users.FirstOrDefault(x => x.Login == tboxLogin.Text && x.Password == p); //сверяем введенный логин и пароль с логином и ъэшкодом в базе
+            //Users autoUser = BaseClass.EM.Users.FirstOrDefault(x => x.Login == tboxLogin.Text && x.Password == p); //сверяем введенный логин и пароль с логином и ъэшкодом в базе
 
-            if (autoUser == null) //если пользователя в базе нет
+            //if (autoUser == null) //если пользователя в базе нет
+            //{
+            //    MessageBox.Show("Данный пользователь не найден!", "Проверьте введенные данные!");
+            //}
+
+            //else 
+            //{
+            //    switch (autoUser.id_User) //проверяем роль пользователя и отправляем его на соответствующую страницу 
+            //    {
+            //        case 1: //администратор
+            //            GlobalValues.id = 1;
+            //            MessageBox.Show("Здравствуйте, администратор!");
+            //            FrameClass.MainFrame.Navigate(new AdminPage());
+            //            break;
+            //        case 2: //обычный пользователь
+            //            GlobalValues.id = 2;
+            //            MessageBox.Show("Здравствуйте, пользователь!");
+            //            FrameClass.MainFrame.Navigate(new ShowSalePage());
+            //            break;
+            //        default:
+            //            MessageBox.Show("У вас нет роли, обратитесь к администратору");
+            //            break;
+            //    }
+            //}
+
+            int p = pbPasword.Password.GetHashCode();
+
+            Users autoUser = BaseClass.EM.Users.FirstOrDefault(x => x.Login == tboxLogin.Text || x.Password == p);
+
+            if (autoUser == null)
             {
-                MessageBox.Show("Данный пользователь не найден!", "Проверьте введенные данные!");
+                MessageBox.Show("Пользователь не найден");
             }
 
-            else 
+            switch (autoUser.id_User)
             {
-                switch (autoUser.id_User) //проверяем роль пользователя и отправляем его на соответствующую страницу 
-                {
-                    case 1: //администратор
-                        GlobalValues.id = 1;
-                        MessageBox.Show("Здравствуйте, администратор!");
-                        FrameClass.MainFrame.Navigate(new AdminPage());
-                        break;
-                    case 2: //обычный пользователь
-                        GlobalValues.id = 2;
-                        MessageBox.Show("Здравствуйте, пользователь!");
-                        FrameClass.MainFrame.Navigate(new ShowSalePage());
-                        break;
-                    default:
-                        MessageBox.Show("У вас нет роли, обратитесь к администратору");
-                        break;
-                }
+                case 1:
+                    GlobalValues.id = 1;
+                    MessageBox.Show("Добра пожаловать, администратор!");
+                    FrameClass.MainFrame.Navigate(new AdminPage());
+                    break;
+                case 2:
+                    GlobalValues.id = 2;
+                    MessageBox.Show("Добро пожаловать, пользователь!");
+                    FrameClass.MainFrame.Navigate(new ShowSalePage());
+                    break;
+                default:
+                    MessageBox.Show("Получите роль у администратора");
+                    break;
             }
 
         }

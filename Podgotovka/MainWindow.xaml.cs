@@ -31,9 +31,13 @@ namespace Podgotovka
         {
             InitializeComponent();
 
-            BaseClass.EM = new EntitiesModel(); //подключаем модель
-            FrameClass.MainFrame = fMain; //привязываем фрейм
-            FrameClass.MainFrame.Navigate(new AutorizationPage()); //грузим на фрейм страницу
+            //BaseClass.EM = new EntitiesModel(); //подключаем модель
+            //FrameClass.MainFrame = fMain; //привязываем фрейм
+            //FrameClass.MainFrame.Navigate(new AutorizationPage()); //грузим на фрейм страницу
+
+            BaseClass.EM = new EntitiesModel();
+            FrameClass.MainFrame = fMain;
+            FrameClass.MainFrame.Navigate(new AutorizationPage());
         }
     }
 }
