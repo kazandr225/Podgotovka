@@ -8,7 +8,73 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ShowSalePage">
 
+    <Page.Resources>
+        <BitmapImage x:Key="defaultImage" UriSource="/Resources/picture.png"></BitmapImage>
+    </Page.Resources>
+    
     <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="143*"/>
+            <RowDefinition Height="600*"/>
+            <RowDefinition Height="150*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" Margin="20,0,0,25">
+                <TextBlock Margin="0,0,15,10">Сортировка по продукту</TextBlock>
+                <ComboBox Name="cmbProduct" SelectionChanged="cbmProdoct_SelectionChanged"></ComboBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Margin="20,0,0,25">
+                <TextBlock Margin="0,0,15,10">Сортировка по алфавиту:</TextBlock>
+                <ComboBox Name="cbSort" SelectionChanged="cbSort_SelectionChanged">
+                    <ComboBoxItem>Без сортировки</ComboBoxItem>
+                    <ComboBoxItem>По названию от А до Я</ComboBoxItem>
+                    <ComboBoxItem>По названию от Я до А</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Margin="20,0,0,25">
+                <TextBlock Margin="0,0,15,10">Поиск по названию</TextBlock>
+                <TextBox Name="tbSearch" TextChanged="cbSearch_TextChanged" Height="20" Width="150"></TextBox>
+            </StackPanel>
+        </StackPanel>
+
+        <ListView Name="listProduct" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="1" Margin="0,30,0,0">
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel HorizontalAlignment="Center"></WrapPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="5" CornerRadius="5" BorderBrush="Black">
+                        <Grid Name="gridMain" Width="275" Height="500" Background="{Binding KindColor}">
+                            
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}"></TextBlock>
+                                <TextBlock Text="{Binding ParchaseCost, StringFormat=Стоимость:{0}}"></TextBlock>
+                                <TextBlock Text="{Binding SellingPrice, StringFormat=Цена:{0}}"></TextBlock>
+                                <TextBlock Text="{Binding ProdAmount}"></TextBlock>
+                                <TextBlock Uid="{Binding id_Product}" Name="tbRevenue" Loaded="tbRevenue_Loaded"></TextBlock>
+                                <Image Width="100" Height="100" Source="{Binding Photo, TargetNullValue={StaticResource defaultImage}}"></Image>
+                                <Button Uid="{Binding id_Product}" Content="Удалить" Click="Buttondeleate_Click"></Button>
+                                <Button Uid="{Binding id_Product}" Content="Редактировать" Name="btnupdate" Click="btnupdate_Click"></Button>
+                            </StackPanel>
+                            
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button  Name="btnCreateSale" Width="150" Height="40" Click="btnCreateSale_Click">Добавить продукт</Button>
+            <Button  Name="btnSavePDF" Width="150" Height="40" Click="btnSavePDF_Click">Сохранить в пдф</Button>
+        </StackPanel>
         
     </Grid>
 </Page>

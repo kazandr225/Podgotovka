@@ -25,12 +25,6 @@ namespace Podgotovka.Pages
         public RegistrationPage()
         {
             InitializeComponent();
-
-            cbRole.ItemsSource = BaseClass.EM.Role.ToList(); //по сути бесполезный блок назначения роли, если можно записать сазу единицу, как обычному пользователю
-            cbRole.SelectedValuePath = "idRole";
-            cbRole.DisplayMemberPath = "Role";
-            cbRole.SelectedIndex = 1; //ну вот про это я и говорил
-
         }
 
         /// <summary>
@@ -40,15 +34,16 @@ namespace Podgotovka.Pages
         {
             try
             {
+                int g = 0;
                 //делаю в несколько строк изза требования того, чтобы в одной строке была только ОДНА команда
                 if (rbMen.IsChecked == true) //выбран мужской пол
                 {
-                    GlobalValues.gerder = 1; //можно просто в переменную записать, ведь не особо пол то хранить надо, верно?
+                    g = 1; //можно просто в переменную записать, ведь не особо пол то хранить надо, верно?
                 }
 
                 if (rbWomen.IsChecked == true) //выбран женский пол
                 {
-                    GlobalValues.gerder = 2;
+                    g = 2;
                 }
 
                 //проверка на логин
@@ -73,8 +68,8 @@ namespace Podgotovka.Pages
                     Birthday_User = Convert.ToDateTime(dpBirthday.SelectedDate),
                     Login = tboxLogin.Text,
                     Password = pbPassword.Password.GetHashCode(), //опять записываем хэшкод, и наоборот, если он не нцжен тут, ну или то же самое, но без перевода, тогда и проверкаа на пароль будет актуальной
-                    id_Gender = GlobalValues.gerder,
-                    id_User = GlobalValues.id
+                    id_Gender = g,
+                    id_Role = 2
                 }; //вот тут надо ставить
 
                 BaseClass.EM.Users.Add(userTable); //добавляем в таблицу Uers данные из созданного объекта

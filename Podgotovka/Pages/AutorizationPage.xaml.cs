@@ -74,7 +74,7 @@ namespace Podgotovka.Pages
                 MessageBox.Show("Пользователь не найден");
             }
 
-            switch (autoUser.id_User)
+            switch (autoUser.id_Role)
             {
                 case 1:
                     GlobalValues.id = 1;
